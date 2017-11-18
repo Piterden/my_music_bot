@@ -1,0 +1,30 @@
+{
+  "name": "my-music-bot",
+  "version": "1.0.0",
+  "description": "Telegram music bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/nodemon/bin/nodemon.js index.js"
+  },
+  "keywords": [
+    "telegram",
+    "player",
+    "files",
+    "music"
+  ],
+  "author": "Denis Efremov",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.12.1",
+    "telegraf": "^3.15.3",
+    "telegraf-flow": "^8.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.11.0",
+    "eslint-config-vue": "^2.0.2",
+    "eslint-plugin-vue": "^2.1.0"
+  }
+}
