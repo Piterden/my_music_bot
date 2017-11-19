@@ -21,25 +21,25 @@ class TgState
    * @return  {this}
    */
   constructor (path, page = 0, options = {}) {
-    this.options = Object.assign(
-      { pageSize: 10 },
-      options
-    )
+    let self = this
 
+    this.options = Object.assign({ pageSize: 10 }, options)
     this.path = path
     this.page = page
 
-    this.folderFiles = fs.readdirSync(path) || []
+    // this.folderFiles = fs.readdirSync(path) || []
+    fs.readdir(path, (err, files) => {
+      if (err) throw err
 
-    this.keyboard = new TgKeyboard(
-      this.folderFiles,
-      {
+      self.folderFiles = files
+
+      self.keyboard = new TgKeyboard(files, {
         path,
         page,
-        pageSize: this.options.pageSize,
-        pagesCount: this.pagesCount
-      }
-    )
+        pageSize: self.options.pageSize,
+        pagesCount: self.pagesCount
+      })
+    })
 
     return this
   }
@@ -111,17 +111,6 @@ class TgKeyboard
   }
 
   /**
-   * Gets the keyboard chunk for page.
-   *
-   * @param   {Number}  page  The page
-   * @return  {Object}        The keyboard.
-   */
-  getKeyboard (page) {
-    this.options.page = page
-    return this.addNavigation(this.page)
-  }
-
-  /**
    * Gets the page.
    *
    * @return  {Object}  The page.
@@ -131,6 +120,17 @@ class TgKeyboard
       this.options.page * this.options.pageSize,
       this.options.page * this.options.pageSize + this.options.pageSize
     ).map(this.makeButton)
+  }
+
+  /**
+   * Gets the keyboard chunk for page.
+   *
+   * @param   {Number}  page  The page
+   * @return  {Object}        The keyboard.
+   */
+  getKeyboard (page) {
+    this.options.page = page
+    return this.addNavigation(this.page)
   }
 
   /**
@@ -258,8 +258,12 @@ app.action(/^\/get\/(.*)$/, ctx => {
 
   if (!filename) return ctx.reply('Error')
 
-  return ctx.replyWithAudio({
-    source: fs.readFileSync(`${state.path}/${filename}`),
+  fs.readFile(`${state.path}/${filename}`, (err, data) => {
+    if (err) throw err
+
+    return ctx.replyWithAudio({
+      source: data,
+    })
   })
 })
 
