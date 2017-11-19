@@ -22,8 +22,10 @@
     "telegraf-flow": "^8.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
-    "eslint": "^4.11.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^3.19.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-vue": "^2.1.0"
   }
