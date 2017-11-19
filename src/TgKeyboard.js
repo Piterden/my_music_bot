@@ -17,7 +17,7 @@ class TgKeyboard
    * @param   {Object}  options  The options
    * @return  {this}
    */
-  constructor (files, options = { pagesCount: 0, page: 0 }) {
+  constructor (files, options = { total: 0, page: 0 }) {
     this.files = files
     this.options = options
 
@@ -60,8 +60,8 @@ class TgKeyboard
    * @return  {Array}
    */
   addNavigation (list) {
-    list.push(new TgButton('Next >', '/next', this.options.page === this.pagesCount))
-    list.push(new TgButton('Last >>>', '/last', this.options.page === this.pagesCount))
+    list.push(new TgButton('Next >', '/next', this.options.page === this.total))
+    list.push(new TgButton('Last >>>', '/last', this.options.page === this.total))
 
     list = list.reverse()
 

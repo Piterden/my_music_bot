@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const fs = require('fs')
 const Telegraf = require('telegraf')
-const { Markup, Extra } = require('telegraf')
+const { Markup, Extra, session } = require('telegraf')
 
 const TgState = require('./src/TgState')
 
@@ -27,10 +27,27 @@ const app = new Telegraf(
  */
 const state = new TgState(process.env.BOT_ROOT_FOLDER)
 
+app.use(session())
+
+/**
+ * Register logger middleware
+ */
+app.use((ctx, next) => {
+  let start = new Date()
+  return next().then(() => {
+    let ms = new Date() - start
+    let command = ctx.update[ctx.updateType].text || ctx.update[ctx.updateType].data
+    console.log(
+      `${command} ${ctx.from.first_name} @${ctx.from.username} | Response time %sms`,
+      ms
+    )
+  })
+})
+
 /**
  * The start command
  */
-app.command('start', ctx => state.getReply(ctx))
+app.start(ctx => state.getReply(ctx))
 
 /**
  * The next page action
@@ -60,7 +77,7 @@ app.action('/first', ctx => {
  * Get the last page
  */
 app.action('/last', ctx => {
-  state.page = state.pagesCount
+  state.page = state.total
   return state.getReply(ctx)
 })
 
@@ -70,7 +87,7 @@ app.action('/last', ctx => {
 app.action(/^\/get\/(.*)$/, ctx => {
   let filename = state.folderFiles[ctx.match[1]]
 
-  console.log(`${filename} by ${ctx.from.first_name} @${ctx.from.username}`)
+  // console.log(`${filename} by ${ctx.from.first_name} @${ctx.from.username}`)
 
   if (!filename) return ctx.reply('Error')
 

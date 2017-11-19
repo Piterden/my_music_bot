@@ -27,16 +27,16 @@ class TgState
     this.path = path
     this.page = page
 
-    fs.readdir(path, (err, files) => {
+    fs.readdir(path, async (err, files) => {
       if (err) throw err
 
-      self.folderFiles = files
+      self.folderFiles = await files
 
       self.keyboard = new TgKeyboard(files, {
         path,
         page,
         pageSize: self.options.pageSize,
-        pagesCount: self.pagesCount
+        total: self.total
       })
     })
 
@@ -48,7 +48,7 @@ class TgState
    *
    * @return  {Number}
    */
-  get pagesCount () {
+  get total () {
     return parseInt(this.folderFiles.length / this.options.pageSize)
   }
 
