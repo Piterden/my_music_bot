@@ -41,7 +41,7 @@ class TgState
   }
 
   get pagesCount () {
-    return parseInt(this.length / this.options.pageSize)
+    return parseInt(this.folderFiles.length / this.options.pageSize)
   }
 
   get markup () {
@@ -133,8 +133,6 @@ const app = new Telegraf(
   }
 )
 
-console.log(process.env.BOT_ROOT_FOLDER)
-
 const state = new TgState(process.env.BOT_ROOT_FOLDER)
 
 app.command('start', ctx =>
@@ -157,7 +155,7 @@ app.action('/first', ctx => {
 })
 
 app.action('/last', ctx => {
-  state.page = state.pagesCount()
+  state.page = state.pagesCount
   return state.getReply(ctx)
 })
 
@@ -166,9 +164,7 @@ app.action(/^\/get\/(.*)$/, ctx => {
 
   console.log(`${filename} by ${ctx.from.first_name} ${ctx.from.last_name} @${ctx.from.username}`)
 
-  if (typeof filename === 'undefined') {
-    return ctx.reply('Error')
-  }
+  if (!filename) return ctx.reply('Error')
 
   return ctx.replyWithAudio({ source: fs.readFileSync(`${state.path}/${filename}`) })
 })
