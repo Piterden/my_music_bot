@@ -22,15 +22,18 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
+    "klaw": "^2.1.1",
     "nodemon": "^1.12.1",
     "telegraf": "^3.15.3",
-    "telegraf-flow": "^8.3.0"
+    "telegraf-flow": "^8.3.0",
+    "through2": "^2.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "eslint": "^3.19.0",
+    "eslint-config-coffeeandcode": "^0.2.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-vue": "^2.1.0"
   }

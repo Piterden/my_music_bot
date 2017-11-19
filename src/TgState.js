@@ -21,26 +21,43 @@ class TgState
    * @return  {this}
    */
   constructor (path, page = 0, options = {}) {
-    let self = this
 
     this.options = Object.assign({ pageSize: 10 }, options)
     this.path = path
     this.page = page
 
-    fs.readdir(path, async (err, files) => {
+    this.updateDirInfo()
+
+    return this
+  }
+
+  /**
+   * Quarantin
+   */
+  updateDirInfo () {
+    let self = this
+
+    fs.readdir(this.path, async (err, files) => {
       if (err) throw err
 
       self.folderFiles = await files
 
-      self.keyboard = new TgKeyboard(files, {
-        path,
-        page,
-        pageSize: self.options.pageSize,
-        total: self.total
-      })
+      self.keyboard = new TgKeyboard(files, this.attrs)
     })
+  }
 
-    return this
+  /**
+   * Get options attributes
+   *
+   * @return  {Object}
+   */
+  get attrs () {
+    return {
+      path: this.path,
+      page: this.page,
+      pageSize: this.options.pageSize,
+      pagesTotal: this.pagesTotal
+    }
   }
 
   /**
@@ -48,7 +65,7 @@ class TgState
    *
    * @return  {Number}
    */
-  get total () {
+  get pagesTotal () {
     return parseInt(this.folderFiles.length / this.options.pageSize)
   }
 
@@ -61,7 +78,9 @@ class TgState
     return Extra.HTML().markup(markup =>
       markup.inlineKeyboard(
         this.keyboard.getKeyboard(this.page),
-        { wrap: (btn, index, currentRow) => currentRow.length <= 1 }
+        {
+          wrap: (btn) => !btn.callback_data.match(/^\/last|\/prev$/),
+        }
       )
     )
   }
@@ -72,7 +91,11 @@ class TgState
    * @return  {String}
    */
   get stateInfo () {
-    return JSON.stringify({ path: this.path, page: this.page })
+    return `<pre>${
+      JSON.stringify(this.attrs)
+        .replace(/,/g, ',\n  ')
+        .replace(/\{/g, '{\n  ')
+        .replace(/}/g, '\n}')}</pre>`
   }
 
   /**
@@ -82,7 +105,7 @@ class TgState
    * @return  {Object}         The reply.
    */
   getReply (ctx) {
-    return ctx.reply(this.stateInfo, this.markup)
+    return ctx.reply(this.stateInfo, this.markup, '<b>HHHHH</b>')
   }
 
 }

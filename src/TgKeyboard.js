@@ -17,7 +17,7 @@ class TgKeyboard
    * @param   {Object}  options  The options
    * @return  {this}
    */
-  constructor (files, options = { total: 0, page: 0 }) {
+  constructor (files, options = { pagesTotal: 0, page: 0 }) {
     this.files = files
     this.options = options
 
@@ -32,14 +32,16 @@ class TgKeyboard
   get page () {
     let self = this
 
-    return self.files.slice(
-      self.options.page * self.options.pageSize,
-      self.options.page * self.options.pageSize + self.options.pageSize
-    ).map((file, idx, arr) => new TgButton(
-      file,
-      `/get/${self.files.indexOf(file)}`,
-      false
-    ))
+    return self.files
+      .slice(
+        self.options.page * self.options.pageSize,
+        self.options.page * self.options.pageSize + self.options.pageSize
+      )
+      .map((file) => new TgButton(
+        file,
+        `/get/${self.files.indexOf(file)}`,
+        false
+      ))
   }
 
   /**
@@ -60,8 +62,8 @@ class TgKeyboard
    * @return  {Array}
    */
   addNavigation (list) {
-    list.push(new TgButton('Next >', '/next', this.options.page === this.total))
-    list.push(new TgButton('Last >>>', '/last', this.options.page === this.total))
+    list.push(new TgButton('Next >', '/next', this.options.page === this.pagesTotal))
+    list.push(new TgButton('Last >>>', '/last', this.options.page === this.pagesTotal))
 
     list = list.reverse()
 

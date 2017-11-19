@@ -12,7 +12,7 @@ class TgButton
    * Constructs the object.
    *
    * @param   {String}    text    The text
-   * @param   {Function}  cb      The callback func
+   * @param   {String}    cb      The callback func
    * @param   {boolean}   hidden  Is hidden
    * @return  {this}
    */

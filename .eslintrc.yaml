@@ -1,0 +1,32 @@
+parser: babel-eslint
+root: true
+extends: 'coffeeandcode/node'
+env:
+  es6: true
+  amd: true
+  node: true
+  jquery: true
+  browser: true
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
+  allowImportExportEverywhere: false
+plugins:
+  - vue
+globals:
+  console: true
+  # $: true
+  # require: true
+rules:
+  indent:
+    - 2
+    - 2
+  quotes:
+    - 2
+    - single
+  linebreak-style:
+    - 2
+    - unix
+  semi:
+    - 1
+    - never
