@@ -15,6 +15,10 @@
   ],
   "author": "Denis Efremov",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Piterden/my_music_bot.git"
+  },
   "dependencies": {
     "dotenv": "^4.0.0",
     "nodemon": "^1.12.1",

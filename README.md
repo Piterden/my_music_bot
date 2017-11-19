@@ -19,13 +19,16 @@ Bot allows you to list the content of defined folder like a buttons list.
 ## Installation
 
 ```bash
-## Creating a folder object
+## Creating a folder
 $ mkdir my_music_bot && cd my_music_bot
-##
+
+## Clone this repository
 $ git clone https://github.com/Piterden/my_music_bot .
-##
+
+## Install dependencies
 $ npm i ## $ yarn
-##
+
+## Run in watch mode
 $ npm run start
 ```
 
