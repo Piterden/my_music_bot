@@ -4,12 +4,12 @@ require('dotenv').config()
 
 const fs = require('fs')
 const Telegraf = require('telegraf')
-const { Markup, Extra, session } = require('telegraf')
+const { session } = require('telegraf')
 
 const TgState = require('./src/TgState')
 
 /**
- * Create the new Telegraf message
+ * Create the new Telegraf instance
  *
  * @type   {Telegraf}
  */
@@ -66,7 +66,7 @@ app.action('/prev', ctx => {
 })
 
 /**
- * Get the first page
+ * The first page action
  */
 app.action('/first', ctx => {
   state.page = 0
@@ -74,7 +74,7 @@ app.action('/first', ctx => {
 })
 
 /**
- * Get the last page
+ * The last page action
  */
 app.action('/last', ctx => {
   state.page = state.total
