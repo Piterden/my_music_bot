@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/nodemon/bin/nodemon.js index.js"
+    "dev": "forewer index.js",
+    "watch": "forewer -w index.js"
   },
   "keywords": [
     "telegram",
