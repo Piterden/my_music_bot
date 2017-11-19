@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "forewer index.js",
-    "watch": "forewer -w index.js"
+    "dev": "forever --minUptime 30000 --spinSleepTime 30000 index.js",
+    "watch": "forever --minUptime 30000 --spinSleepTime 30000 -w index.js"
   },
   "keywords": [
     "telegram",
