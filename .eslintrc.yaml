@@ -15,8 +15,6 @@ plugins:
   - vue
 globals:
   console: true
-  # $: true
-  # require: true
 rules:
   indent:
     - 2

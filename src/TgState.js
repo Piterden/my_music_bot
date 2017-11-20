@@ -105,7 +105,7 @@ class TgState
    * @return  {Object}         The reply.
    */
   getReply (ctx) {
-    return ctx.reply(this.stateInfo, this.markup, '<b>HHHHH</b>')
+    return ctx.reply(this.stateInfo, this.markup)
   }
 
 }

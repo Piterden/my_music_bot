@@ -29,7 +29,7 @@ $ git clone https://github.com/Piterden/my_music_bot .
 $ npm i ## $ yarn
 
 ## Run in watch mode
-$ npm run start
+$ npm run watch
 ```
 
 ## Usage
