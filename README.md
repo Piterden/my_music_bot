@@ -26,10 +26,17 @@ $ mkdir my_music_bot && cd my_music_bot
 $ git clone https://github.com/Piterden/my_music_bot .
 
 ## Install dependencies
-$ npm i ## $ yarn
+$ npm i
+## or
+$ yarn
+
+## Create the .env file and fill it
+$ cp .env.example .env
 
 ## Run in watch mode
 $ npm run watch
+## or
+$ yarn watch
 ```
 
 ## Usage
